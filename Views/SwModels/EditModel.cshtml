@@ -1,0 +1,24 @@
+﻿@using SwitchAcc.Models
+@model SwModel
+
+@{
+    ViewData["Title"] = "Редактор модели";
+}
+
+
+<form asp-action="EditModel" method="post" asp-route-modelid="@Model?.ID">
+    <div class="left">
+        <input type="hidden" asp-for="ID" />
+        <div class="form-group">
+            <label asp-for="Name">Модель: </label>
+            <input class="form-control" asp-for="Name" />
+            <span asp-validation-for="Name" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a class="btn btn-secondary" asp-action="Index">Вернуться</a>
+</form>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+

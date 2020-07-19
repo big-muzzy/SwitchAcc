@@ -1,0 +1,66 @@
+﻿@using SwitchAcc.Models
+
+@{
+    ViewData["Title"] = "Коммутаторы";
+}
+
+@if (Model != null)
+{
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Модель</th>
+                <th>IP</th>
+                <th>MAC</th>
+                <th>VLAN</th>
+                <th>Серийный номер</th>
+                <th>Инвентарный номер</th>
+                <th>Дата покупки</th>
+                <th>Дата установки</th>
+                <th>Этаж</th>
+                <th>Комментарий</th>
+                <th>Изменить</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Switch item in Model.Switches)
+            {
+            <tr>
+                <td> @item.Model.Name </td>
+                <td> @item.IP </td>
+                <td> @item.MAC </td>
+                <td> @item.ManageVLAN.Name </td>
+                <td> @item.SerialNumber </td>
+                <td> @item.InventoryNumber </td>
+                <td> @item.BuyDate </td>
+                <td> @item.InstallDate </td>
+                <td> @item.Floor </td>
+                <td> @item.Comment </td>
+                <td>
+                    <form asp-action="Delete" method="post">
+                        <a asp-action="EditSwitch" class="btn btn-sm btn-warning btn-std-size" asp-route-switchid="@item.ID">
+                            Изменить
+                        </a>
+                        <input type="hidden" name="switchid" value="@item.ID" /><br />
+                        <button type="submit" class="btn btn-sm btn-danger btn-std-size">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    <div page-model="@Model.PagingInfo" page-action="Index"
+         page-classes-enabled="true"
+         page-class="btn" page-class-normal="btn-default" page-class-selected="btn-primary"
+         class="btn-group pull-right"></div>
+}
+else
+{
+    <div class="row"><h3>Нет коммутаторов.</h3></div>
+}
+
+<div class="row">
+    <a class="btn btn-primary" asp-action="EditSwitch">Добавить коммутатор</a>&nbsp;
+</div>

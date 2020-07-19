@@ -1,0 +1,93 @@
+﻿@using SwitchAcc.Models
+@model SwitchEditViewModel
+
+@{
+    ViewData["Title"] = "Редактор коммутатора";
+}
+
+
+<link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.css" />
+
+
+<form asp-action="EditSwitch" method="post" asp-route-switchid="@Model.Item?.ID?">
+    <div class="left">
+        <input type="hidden" asp-for="Item.ID" />
+        <div class="form-group">
+            <label asp-for="Item.Model">Модель: </label>
+            <select asp-for="Item.Model.ID" asp-items="@(new SelectList(Model.ModelsList,"ID","Name"))"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Item.IP">IP: </label>
+            <input class="form-control" asp-for="Item.IP" />
+            <span asp-validation-for="Item.IP"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Item.MAC">MAC: </label>
+            <input class="form-control" asp-for="Item.MAC" />
+            <span asp-validation-for="Item.MAC"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Item.ManageVLAN">Управляющий VLAN: </label>
+            <select asp-for="Item.ManageVLAN.ID" asp-items="@(new SelectList(Model.VLANsList,"ID","Name"))"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Item.SerialNumber">Серийный номер: </label>
+            <input class="form-control" asp-for="Item.SerialNumber" />
+            <span asp-validation-for="Item.SerialNumber"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Item.InventoryNumber">Инвентарный номер: </label>
+            <input class="form-control" asp-for="Item.InventoryNumber" />
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <label asp-for="Item.BuyDate">Дата покупки: </label>
+                <div class="input-group date datepicker">
+                    <input type="text" class="form-control" asp-for="Item.BuyDate" readonly>
+                    <div class="input-group-addon"><h3>&nbsp;<i class="fa fa-calendar"></i></h3></div>
+                    <span asp-validation-for="Item.BuyDate"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <label asp-for="Item.InstallDate">Дата установки: </label>
+                <div class="input-group date datepicker">
+                    <input type="text" class="form-control" asp-for="Item.InstallDate" readonly>
+                    <div class="input-group-addon"><h3>&nbsp;<i class="fa fa-calendar"></i></h3></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Item.Floor">Этаж, на котором стоит: </label>
+            <input class="form-control" asp-for="Item.Floor" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Item.Comment">Комментарий: </label>
+            <textarea class="form-control" rows="10" asp-for="Item.Comment"> </textarea>
+        </div>
+
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a class="btn btn-secondary" asp-action="Index">Вернуться</a>
+</form>
+
+<script type="text/javascript" src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="~/lib/bootstrap-datepicker/locales/bootstrap-datepicker.ru.min.js" charset="UTF-8"></script>
+<script type="text/javascript">
+    $(".datepicker").datepicker({
+        format: "dd.mm.yyyy",
+        weekStart: 1,
+        autoclose: true,
+        clearBtn: false,
+        daysOfWeekHighlighted: [0, 6],
+        language: "ru-RU",
+        showOnFocus: true,
+        showWeekDays: false,
+        todayHighlight: true
+    });
+</script>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+

@@ -26,7 +26,7 @@ group by Person.RegionId, Product.Id
 having 
 	count(Product.Id) >= @productCount and 
 	sum(Price.Price*OrderItem.ProductCount) >= @total and
-	count(Person.Id) >= @personCount; --Группировка по регионам и товарам
+	count(Person.Id) >= @personCount; --Р“СЂСѓРїРїРёСЂРѕРІРєР° РїРѕ СЂРµРіРёРѕРЅР°Рј Рё С‚РѕРІР°СЂР°Рј
 
 
 declare @MaxOrders Table 
@@ -38,7 +38,7 @@ declare @MaxOrders Table
 insert into @MaxOrders 
 select RegionID, max(ProductCount) ProductCount
 from @GroupOrders 
-group by RegionID; --Выбор максимальных продаж по регионам 
+group by RegionID; --Р’С‹Р±РѕСЂ РјР°РєСЃРёРјР°Р»СЊРЅС‹С… РїСЂРѕРґР°Р¶ РїРѕ СЂРµРіРёРѕРЅР°Рј
 
 declare @MaxTotal Table 
 (
@@ -53,7 +53,7 @@ select top 10 MaxOrders.RegionID, MaxOrders.ProductCount,
 	from @GroupOrders GroupOrders
 	where MaxOrders.RegionId = GroupOrders.RegionID and MaxOrders.ProductCount = GroupOrders.ProductCount) MaxTotal
 from @MaxOrders MaxOrders
-order by ProductCount desc, MaxTotal desc; --Выбор регионов, продавших максимальное количество какого-либо товара и максимальная сумма продаж
+order by ProductCount desc, MaxTotal desc; --Р’С‹Р±РѕСЂ СЂРµРіРёРѕРЅРѕРІ, РїСЂРѕРґР°РІС€РёС… РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РєР°РєРѕРіРѕ-Р»РёР±Рѕ С‚РѕРІР°СЂР° Рё РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ СЃСѓРјРјР° РїСЂРѕРґР°Р¶
 
 select Region.RegionName, Product.ProductName, GroupOrders.ProductCount, GroupOrders.PersonCount, GroupOrders.Total
 from @MaxTotal MaxTotal
@@ -63,4 +63,5 @@ inner join @GroupOrders GroupOrders on
 	GroupOrders.Total = MaxTotal.MaxTotal 
 inner join dbo.Region Region on Region.Id = MaxTotal.RegionID
 inner join dbo.Product Product on Product.Id = GroupOrders.ProductId
-order by Region.RegionName; --Вывод результатов по форме
+order by Region.RegionName; --Р’С‹РІРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РїРѕ С„РѕСЂРјРµ
+
